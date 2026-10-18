@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f8fb">
+    <title>Care Evidence | Clinical research assistant</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Application sidebar">
+        <a class="brand" href="/" aria-label="Care Evidence home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M16 5v22M5 16h22" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+              <circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </span>
+          <span><strong>Care Evidence</strong><small>Clinical research assistant</small></span>
+        </a>
+
+        <button class="new-chat-button" id="new-chat" type="button">
+          <span aria-hidden="true">＋</span>New conversation
+        </button>
+
+        <div class="sidebar-section">
+          <span class="eyebrow">WORKSPACE</span>
+          <div class="workspace-card">
+            <span class="workspace-icon" aria-hidden="true">⌕</span>
+            <span><strong>Evidence search</strong><small>Hybrid retrieval enabled</small></span>
+            <span class="live-dot" aria-label="Ready"></span>
+          </div>
+        </div>
+
+        <div class="sidebar-note">
+          <span class="note-icon" aria-hidden="true">i</span>
+          <p>Research use only. Do not enter patient-identifying information; prompts are sent to Groq.</p>
+        </div>
+
+        <div class="sidebar-profile">
+          <span class="avatar">CE</span>
+          <span><strong>Local session</strong><small>Conversation is not saved</small></span>
+          <span class="profile-menu" aria-hidden="true">•••</span>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div class="breadcrumbs">
+            <span>Workspace</span><span class="crumb-divider">/</span><strong>Clinical assistant</strong>
+          </div>
+          <div class="topbar-status"><span class="shield-icon" aria-hidden="true">✓</span><span>Evidence-first mode</span></div>
+        </header>
+
+        <section class="chat-layout" aria-label="Clinical research chat">
+          <div class="chat-column">
+            <div class="messages" id="messages" aria-live="polite">
+              <section class="welcome" id="welcome">
+                <div class="welcome-icon" aria-hidden="true">
+                  <svg viewBox="0 0 48 48" fill="none">
+                    <path d="M24 8v32M8 24h32" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </div>
+                <span class="eyebrow">CLINICAL EVIDENCE, ORGANIZED</span>
+                <h1>What would you like<br>to explore?</h1>
+                <p class="welcome-copy">Ask a research question to search the available evidence. Responses include retrieved source references and a safety review.</p>
+                <div class="suggestion-grid">
+                  <button class="suggestion" type="button" data-prompt="What evidence in the available sources discusses respiratory symptoms and warning signs?">
+                    <span class="suggestion-icon mint" aria-hidden="true">⌕</span>
+                    <span><strong>Explore evidence</strong><small>Search a clinical topic</small></span><span class="suggestion-arrow" aria-hidden="true">↗</span>
+                  </button>
+                  <button class="suggestion" type="button" data-prompt="Summarize the limitations of using benchmark dataset evidence for a current clinical decision.">
+                    <span class="suggestion-icon lilac" aria-hidden="true">▤</span>
+                    <span><strong>Review evidence quality</strong><small>Understand source limitations</small></span><span class="suggestion-arrow" aria-hidden="true">↗</span>
+                  </button>
+                  <button class="suggestion" type="button" data-prompt="What should be checked when evaluating medication safety?">
+                    <span class="suggestion-icon peach" aria-hidden="true">＋</span>
+                    <span><strong>Medication safety</strong><small>Review general considerations</small></span><span class="suggestion-arrow" aria-hidden="true">↗</span>
+                  </button>
+                  <button class="suggestion" type="button" data-prompt="How does this assistant retrieve and cite its sources?">
+                    <span class="suggestion-icon blue" aria-hidden="true">⌘</span>
+                    <span><strong>How it works</strong><small>Learn about retrieval</small></span><span class="suggestion-arrow" aria-hidden="true">↗</span>
+                  </button>
+                </div>
+              </section>
+            </div>
+
+            <div class="composer-wrap">
+              <form class="composer" id="chat-form">
+                <label class="sr-only" for="question">Your clinical research question</label>
+                <textarea id="question" name="question" rows="1" maxlength="4000" placeholder="Ask a clinical research question..." required></textarea>
+                <div class="composer-bottom">
+                  <label class="medication-field">
+                    <span aria-hidden="true">＋</span>
+                    <span class="sr-only">Optional medication names, comma-separated</span>
+                    <input id="medications" type="text" placeholder="Add medications to screen (optional)" autocomplete="off">
+                  </label>
+                  <div class="composer-actions">
+                    <span class="key-hint">Enter to send</span>
+                    <button class="send-button" id="send-button" type="submit" aria-label="Send message">
+                      <svg viewBox="0 0 20 20" aria-hidden="true">
+                        <path d="M10 15V5M5.5 9.5 10 5l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <p class="composer-disclaimer">AI-generated research support can be incomplete. Do not include identifiable patient information. Verify findings with a qualified professional.</p>
+            </div>
+          </div>
+
+          <aside class="context-panel" aria-label="Assistant information">
+            <div class="context-heading">
+              <span class="context-heading-icon" aria-hidden="true">✳</span>
+              <div><strong>About this assistant</strong><small>Research prototype</small></div>
+            </div>
+            <div class="context-card">
+              <span class="context-label">EVIDENCE SOURCES</span>
+              <div class="source-row">
+                <span class="source-symbol dataset" aria-hidden="true">D</span>
+                <span><strong>RAGBench · covidqa</strong><small>Benchmark source text</small></span>
+                <span class="source-state">Connected</span>
+              </div>
+              <div class="source-row">
+                <span class="source-symbol fda" aria-hidden="true">Rx</span>
+                <span><strong>OpenFDA labels</strong><small>Medication label lookup</small></span>
+                <span class="source-state">On demand</span>
+              </div>
+            </div>
+            <div class="context-card workflow-card">
+              <span class="context-label">RESPONSE WORKFLOW</span>
+              <ol class="workflow-list">
+                <li><span>01</span><div><strong>Question triage</strong><small>Identifies risk and review needs</small></div></li>
+                <li><span>02</span><div><strong>Hybrid retrieval</strong><small>Semantic + keyword search</small></div></li>
+                <li><span>03</span><div><strong>Evidence synthesis</strong><small>Grounded in retrieved sources</small></div></li>
+                <li><span>04</span><div><strong>Safety review</strong><small>Flags unsupported responses</small></div></li>
+              </ol>
+            </div>
+            <div class="context-warning">
+              <span aria-hidden="true">!</span>
+              <p><strong>Not for urgent care</strong><br>For emergencies, contact local emergency services. Never delay care to use this tool.</p>
+            </div>
+            <div class="dataset-footnote"><span class="dataset-dot" aria-hidden="true"></span><span>RAGBench is benchmark data, not a current clinical guideline.</span></div>
+          </aside>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+datasets>=3.0,<5.0
+langchain>=1.0,<2.0
+langchain-core>=1.0,<2.0
+langchain-groq>=1.0,<2.0
+langchain-huggingface>=1.0,<2.0
+langgraph>=1.0,<2.0
+python-dotenv>=1.0,<2.0
+rank-bm25>=0.2.2,<0.3
+requests>=2.32,<3.0
+sentence-transformers>=3.0,<6.0
